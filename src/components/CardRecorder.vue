@@ -18,7 +18,9 @@
         <span class="remaining">({{ card.remaining }})</span>
       </div>
     </div>
+    <button @click="undoSelect">撤销上一次操作</button>
   </div>
+
 </template>
 
 <script>
@@ -60,6 +62,14 @@ export default {
         this.cards[index].remaining--;
       }
     },
+    undoSelect() {
+    for (let i = this.cards.length - 1; i >= 0; i--) {
+      if (this.cards[i].remaining < this.cards[i].total) {
+        this.cards[i].remaining++;
+        break;
+      }
+    }
+  },
   },
   mounted() {
     this.initializeCards();
@@ -123,5 +133,15 @@ a {
 .remaining {
   font-size: 0.8em;
   color: #888;
+}
+button {
+  background-color: #23a6d5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 20px;
 }
 </style>
