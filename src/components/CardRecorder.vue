@@ -6,6 +6,7 @@
      <p class="gradient-text">如有帮助，帮忙点一个star哦！！！</p>
     <label for="decks">选择几副牌:</label>
     <input type="number" id="decks" v-model="decks" min="1" @change="initializeCards" />
+    
     <div class="cards-container">
       <div
         v-for="(card, index) in cards"
@@ -98,18 +99,25 @@ a {
   }
 }
 .cards-container {
+ 
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center!important;
+  margin-top: 20px;
+
 }
 
 .card {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 25px;
+  padding: 15px;
   margin: 5px;
   cursor: pointer;
+  min-width: 50px;
+  min-height: 10px;
+  height: 40px;
+  width: 60px;
 }
 
 .remaining {
