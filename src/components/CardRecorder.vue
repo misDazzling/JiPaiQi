@@ -30,6 +30,7 @@ export default {
     return {
       decks: 1,
       cards: [],
+      history: [], // 添加 history 属性
     };
   },
   methods: {
@@ -58,16 +59,18 @@ export default {
       }));
     },
     selectCard(index) {
-      if (this.cards[index].remaining > 0) {
-        this.cards[index].remaining--;
-      }
-    },
-    undoSelect() {
-    for (let i = this.cards.length - 1; i >= 0; i--) {
-      if (this.cards[i].remaining < this.cards[i].total) {
-        this.cards[i].remaining++;
-        break;
-      }
+    if (this.cards[index].remaining > 0) {
+      // 将操作对象加入历史数组
+      this.history.push({ index, remaining: this.cards[index].remaining });
+      this.cards[index].remaining--;
+      console.log('selectCard方法被调用了');
+    }
+  },
+  undoSelect() {
+    // 从历史数组末尾开始逐个还原
+    const lastOperation = this.history.pop();
+    if (lastOperation) {
+      this.cards[lastOperation.index].remaining = lastOperation.remaining;
     }
   },
   },
